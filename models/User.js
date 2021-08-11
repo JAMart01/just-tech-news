@@ -5,10 +5,16 @@ const bcrpyt = require('bcrypt');
 
 
 // create our User model
-class User extends Model {}
+class User extends Model {
+    // set up method to run on instance data (per user) to check password
+    checkPassword(loginPw) {
+        return bcrpyt.compareSync(loginPw, this.password);
+    }
+}
 
 // Define table columns and configuration
 User.init(
+
     {
         id: {
             type: DataTypes.INTEGER,
@@ -55,6 +61,7 @@ User.init(
         underscored: true,
         modelName: 'user'
     }   
+
 );
 
 
